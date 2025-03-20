@@ -1,0 +1,42 @@
+<div class="card mb-4 shadow">
+  <div class="card-header bg-primary text-white">
+    <h3><%= @user.username %>'s Profile</h3>
+  </div>
+  <div class="card-body">
+    <p><strong>Username:</strong> <%= @user.username %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
+    <p><strong>Member Since:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></p>
+    
+    <% if current_user == @user %>
+      <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card shadow">
+  <div class="card-header">
+    <h3>Bookmarked Books</h3>
+  </div>
+  <div class="card-body">
+    <% if @bookmarks.any? %>
+      <div class="row">
+        <% @bookmarks.each do |bookmark| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to bookmark.book.title, book_path(bookmark.book) %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= bookmark.book.author %></h6>
+                <p class="card-text"><small><%= truncate(bookmark.book.description, length: 100) %></small></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Bookmarked: <%= bookmark.created_at.strftime("%b %d, %Y") %></small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center">No bookmarked books yet.</p>
+    <% end %>
+  </div>
+</div>

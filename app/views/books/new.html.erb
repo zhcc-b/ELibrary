@@ -1,0 +1,11 @@
+<div class="card shadow">
+  <div class="card-header">
+    <h2>Add New Book</h2>
+  </div>
+  <div class="card-body">
+    <%= render 'form', book: @book %>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Back to Books', books_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

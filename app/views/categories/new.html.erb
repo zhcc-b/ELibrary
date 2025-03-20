@@ -1,0 +1,11 @@
+<div class="card shadow">
+  <div class="card-header">
+    <h2>New Category</h2>
+  </div>
+  <div class="card-body">
+    <%= render 'form', category: @category %>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Back to Categories', categories_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="card shadow mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h2><%= @category.name %></h2>
+    <% if admin? %>
+      <div>
+        <%= link_to "Edit", edit_category_path(@category), class: "btn btn-warning" %>
+        <% if @category.books.count == 0 %>
+          <%= link_to "Delete", "/categories/#{@category.id}/delete",
+            class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <p><%= @category.description %></p>
+  </div>
+</div>
+
+<div class="card shadow">
+  <div class="card-header">
+    <h3>Books in this Category</h3>
+  </div>
+  <div class="card-body">
+    <% if @books.any? %>
+      <div class="row">
+        <% @books.each do |book| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to book.title, book_path(book) %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= book.author %></h6>
+                <p class="card-text"><small><%= truncate(book.description, length: 100) %></small></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Published: <%= book.published_date.strftime("%b %d, %Y") %></small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center">No books in this category yet.</p>
+    <% end %>
+  </div>
+</div>

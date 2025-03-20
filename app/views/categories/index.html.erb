@@ -1,0 +1,39 @@
+<!-- app/views/categories/index.html.erb -->
+<div class="card shadow mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h2>Book Categories</h2>
+    <% if admin? %>
+      <%= link_to "New Category", new_category_path, class: "btn btn-success" %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <% if @categories.any? %>
+      <div class="row">
+        <% @categories.each do |category| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to category.name, category_path(category) %></h5>
+                <p class="card-text"><%= truncate(category.description, length: 100) %></p>
+              </div>
+              <div class="card-footer">
+                <p><small class="text-muted"><%= pluralize(category.books.count, "book") %> in this category</small></p>
+                <% if admin? %>
+                  <div class="btn-group">
+                    <%= link_to "Edit", edit_category_path(category), class: "btn btn-sm btn-warning" %>
+                    <% if category.books.count == 0 %>
+                      <%= link_to "Delete", "/categories/#{category.id}/delete",
+                        class: "btn btn-sm btn-danger", data: { confirm: "Are you sure?" } %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center">No categories available yet.</p>
+    <% end %>
+  </div>
+</div>

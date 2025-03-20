@@ -1,0 +1,31 @@
+<%= form_with(model: [@book, review], local: true) do |f| %>
+  <% if review.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h4>
+      <ul>
+        <% review.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :rating %>
+    <div class="rating-selector">
+      <% (1..5).each do |rating| %>
+        <div class="form-check form-check-inline">
+          <%= f.radio_button :rating, rating, class: "form-check-input" %>
+          <%= f.label "rating_#{rating}", "#{rating} ★", class: "form-check-label" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content, "Review" %>
+    <%= f.text_area :content, class: "form-control", rows: 4, placeholder: "Share your thoughts about this book..." %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

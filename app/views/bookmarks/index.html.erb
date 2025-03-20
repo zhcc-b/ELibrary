@@ -1,0 +1,41 @@
+<div class="card shadow mb-4">
+  <div class="card-header">
+    <h2>My Bookmarked Books</h2>
+  </div>
+  <div class="card-body">
+    <% if @bookmarks.any? %>
+      <div class="row">
+        <% @bookmarks.each do |bookmark| %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to bookmark.book.title, book_path(bookmark.book) %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= bookmark.book.author %></h6>
+                <p><span class="badge badge-info"><%= bookmark.book.category.name %></span></p>
+                <p class="card-text"><small><%= truncate(bookmark.book.description, length: 100) %></small></p>
+                <% if bookmark.notes.present? %>
+                  <div class="mt-2">
+                    <strong>My Notes:</strong>
+                    <p class="font-italic"><%= bookmark.notes %></p>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">Bookmarked: <%= bookmark.created_at.strftime("%b %d, %Y") %></small>
+                  <%= link_to "Remove", bookmark_path(bookmark), method: :delete, 
+                      class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure?" } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p>You don't have any bookmarked books yet.</p>
+        <%= link_to "Browse Books", books_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
