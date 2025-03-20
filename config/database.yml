@@ -18,9 +18,5 @@ test:
 
 # Production settings for Render
 production:
-  primary:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-  cable:
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
