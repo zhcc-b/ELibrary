@@ -18,7 +18,7 @@
                 <p class="card-text"><small><%= truncate(book.description, length: 150) %></small></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Published: <%= book.published_date.strftime("%b %d, %Y") %></small>
+                <small class="text-muted">Published: <%= book.published_date ? book.published_date.strftime("%b %d, %Y") : "No date" %></small>
               </div>
             </div>
           </div>

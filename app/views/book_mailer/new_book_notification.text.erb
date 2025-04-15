@@ -1,0 +1,12 @@
+Hello <%= @user.username %>,
+
+A new book has been added to our library that you might be interested in:
+
+Title: <%= @book.title %>
+Author: <%= @book.author %>
+Category: <%= @book.category.name %>
+Description: <%= @book.description %>
+
+View Book Details: <%= book_url(@book) %>
+
+This email was sent from ELibrary. Please do not reply to this message.

@@ -34,6 +34,15 @@ gem "cssbundling-rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# user authentication
+gem "devise"
+gem "devise-jwt"
+
+# API
+gem "rack-cors"
+gem "active_model_serializers"
+gem "jsonapi-serializer"
+
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
 
@@ -60,6 +69,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener"
 end
 
 group :test do

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 5px; }
+      .header { background: #4a7bff; color: white; padding: 10px; border-radius: 5px 5px 0 0; }
+      .content { padding: 20px; background: white; border-radius: 0 0 5px 5px; }
+      .review-info { margin-top: 15px; padding: 15px; background: #f5f5f5; border-left: 4px solid #4a7bff; }
+      .rating { color: #f8d64e; }
+      .footer { margin-top: 20px; font-size: 12px; color: #666; text-align: center; }
+      .btn { display: inline-block; background: #4a7bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>New Review Posted!</h1>
+      </div>
+      <div class="content">
+        <p>Hello <%= @user.username %>,</p>
+        
+        <p>A new review has been posted for "<%= @book.title %>", a book you've bookmarked:</p>
+        
+        <div class="review-info">
+          <div class="rating">
+            <% @review.rating.times do %>★<% end %><% (5 - @review.rating).times do %>☆<% end %>
+            (<%= @review.rating %>/5)
+          </div>
+          <p><em>"<%= @review.content %>"</em></p>
+          <p>- Posted by <%= @review.user.username %></p>
+        </div>
+        
+        <p style="margin-top: 20px;">
+          <%= link_to "View Book and Reviews", book_url(@book), class: "btn" %>
+        </p>
+      </div>
+      <div class="footer">
+        <p>This email was sent from ELibrary. Please do not reply to this message.</p>
+      </div>
+    </div>
+  </body>
+</html>

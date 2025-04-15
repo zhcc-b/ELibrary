@@ -1,10 +1,24 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_user, :logged_in?, :admin?
+
+  protected
+
+  # 配置Devise允许的参数
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username, :role ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :role ])
+  end
 
   private
 
+  # use Devise's current_user method
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    if respond_to?(:warden) && warden.user
+      warden.user
+    else
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]  # 回退到自定义会话
+    end
   end
 
   def logged_in?
@@ -13,7 +27,6 @@ class ApplicationController < ActionController::Base
 
   def admin?
     current_user && current_user.role == "admin"
-    # logged_in?
   end
 
   def require_user

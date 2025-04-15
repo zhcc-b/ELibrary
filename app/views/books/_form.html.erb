@@ -35,5 +35,17 @@
     <%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: "Select a category" }, class: "form-control" %>
   </div>
 
+  <!-- image upload -->
+  <div class="form-group">
+    <%= f.label :cover, "Book Cover" %>
+    <%= f.file_field :cover, class: "form-control" %>
+    <% if book.cover.attached? %>
+      <div class="mt-2">
+        <p>Current cover:</p>
+        <%= image_tag book.cover, style: "max-width: 200px; max-height: 200px;" %>
+      </div>
+    <% end %>
+  </div>
+
   <%= f.submit class: "btn btn-primary" %>
 <% end %>

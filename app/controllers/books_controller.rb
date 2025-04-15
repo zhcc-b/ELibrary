@@ -22,6 +22,11 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
+      # 向所有用户发送新书通知
+      User.all.each do |user|
+        BookMailer.new_book_notification(user, @book).deliver_later
+      end
+
       flash[:notice] = "Book was successfully created."
       redirect_to @book
     else
@@ -56,5 +61,9 @@ class BooksController < ApplicationController
 
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def book_params
+    params.require(:book).permit(:title, :author, :description, :published_date, :category_id, :cover)
   end
 end

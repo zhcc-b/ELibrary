@@ -1,0 +1,11 @@
+Hello <%= @user.username %>,
+
+A new review has been posted for "<%= @book.title %>", a book you've bookmarked:
+
+Rating: <%= @review.rating %>/5
+Review: "<%= @review.content %>"
+Posted by: <%= @review.user.username %>
+
+View Book and Reviews: <%= book_url(@book) %>
+
+This email was sent from ELibrary. Please do not reply to this message.
