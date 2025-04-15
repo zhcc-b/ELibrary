@@ -22,9 +22,10 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      # 向所有用户发送新书通知
-      User.all.each do |user|
-        BookMailer.new_book_notification(user, @book).deliver_later
+      if Rails.env.development?
+        User.all.each do |user|
+          BookMailer.new_book_notification(user, @book).deliver_now
+        end
       end
 
       flash[:notice] = "Book was successfully created."

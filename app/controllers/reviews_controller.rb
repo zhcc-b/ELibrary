@@ -14,11 +14,13 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      # 发送通知给收藏该书的用户
-      @review.book.users_who_bookmarked.each do |user|
-        # 不给评论的作者自己发送通知
-        unless user == current_user
-          BookMailer.new_review_notification(user, @review).deliver_later
+      if Rails.env.development?
+        # 发送通知给收藏该书的用户
+        @review.book.users_who_bookmarked.each do |user|
+          # 不给评论的作者自己发送通知
+          unless user == current_user
+            BookMailer.new_review_notification(user, @review).deliver_later
+          end
         end
       end
 

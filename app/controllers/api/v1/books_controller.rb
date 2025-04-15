@@ -15,9 +15,10 @@ class Api::V1::BooksController < Api::V1::BaseController
     @book = Book.new(book_params)
 
     if @book.save
-      # 向所有用户发送新书通知
-      User.all.each do |user|
-        BookMailer.new_book_notification(user, @book).deliver_later
+      if Rails.env.development?
+        User.all.each do |user|
+          BookMailer.new_book_notification(user, @book).deliver_now
+        end
       end
 
       render json: BookSerializer.new(@book).serializable_hash, status: :created
